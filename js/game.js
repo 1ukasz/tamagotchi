@@ -12,23 +12,23 @@ export default class Game {
       energyElement,
       funElement,
     });
-
     console.log("Game started");
 
     const decreaseHealth = () => {
-      if (
-        this.tamagotchi.hunger.value <= 0 ||
-        this.tamagotchi.energy.value <= 0
-      )
-        this.tamagotchi.health.value--;
-      this.tamagotchi.displayHealth(healthElement);
-
       if (this.tamagotchi.health.value <= 0) {
-        clearInterval(healthId);
-        clearInterval(hungerId);
-        clearInterval(energyId);
-        clearInterval(funId);
-        console.log("You lost");
+        this.end({
+          healthInterval: healthId,
+          hungerInterval: hungerId,
+          energyInterval: energyId,
+          funInterval: funId,
+        });
+      } else {
+        if (
+          this.tamagotchi.hunger.value <= 0 ||
+          this.tamagotchi.energy.value <= 0
+        )
+          this.tamagotchi.health.value--;
+        this.tamagotchi.displayHealth(healthElement);
       }
     };
 
@@ -54,5 +54,13 @@ export default class Game {
     let hungerId = setInterval(decreaseHunger, 1000);
     let energyId = setInterval(decreaseEnergy, 2000);
     let funId = setInterval(decreaseFun, 1000);
+  };
+
+  end = ({ healthInterval, hungerInterval, energyInterval, funInterval }) => {
+    clearInterval(healthInterval);
+    clearInterval(hungerInterval);
+    clearInterval(energyInterval);
+    clearInterval(funInterval);
+    console.log("Game over");
   };
 }
