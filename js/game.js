@@ -3,6 +3,10 @@ import Tamagotchi from "./modules/tamagotchi.js";
 export default class Game {
   constructor() {
     this.tamagotchi = new Tamagotchi();
+    this.healthIntervalId = null;
+    this.hungerIntervalId = null;
+    this.energyIntervalId = null;
+    this.funIntervalId = null;
   }
 
   start = ({ healthElement, hungerElement, energyElement, funElement }) => {
@@ -17,10 +21,10 @@ export default class Game {
     const decreaseHealth = () => {
       if (this.tamagotchi.health.value <= 0) {
         this.end({
-          healthInterval: healthId,
-          hungerInterval: hungerId,
-          energyInterval: energyId,
-          funInterval: funId,
+          healthInterval: this.healthIntervalId,
+          hungerInterval: this.hungerIntervalId,
+          energyInterval: this.energyIntervalId,
+          funInterval: this.funIntervalId,
         });
       } else {
         if (
@@ -50,10 +54,10 @@ export default class Game {
       this.tamagotchi.displayFun(funElement);
     };
 
-    let healthId = setInterval(decreaseHealth, 1000);
-    let hungerId = setInterval(decreaseHunger, 1000);
-    let energyId = setInterval(decreaseEnergy, 2000);
-    let funId = setInterval(decreaseFun, 1000);
+    this.healthIntervalId = setInterval(decreaseHealth, 1000);
+    this.hungerIntervalId = setInterval(decreaseHunger, 1000);
+    this.energyIntervalId = setInterval(decreaseEnergy, 2000);
+    this.funId = setInterval(decreaseFun, 1000);
   };
 
   end = ({ healthInterval, hungerInterval, energyInterval, funInterval }) => {
