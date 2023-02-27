@@ -1,0 +1,71 @@
+.cat {
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.-bored {
+    width: 153px;
+    height: 131px;
+    background-position: -1px -1px;
+}
+
+.-dead {
+    width: 183px;
+    height: 73px;
+    background-position: -156px -1px;
+}
+
+.-eating1 {
+    width: 152px;
+    height: 131px;
+    background-position: -156px -76px;
+}
+
+.-eating2 {
+    width: 152px;
+    height: 131px;
+    background-position: -310px -76px;
+}
+
+.-happy {
+    width: 153px;
+    height: 131px;
+    background-position: -1px -209px;
+}
+
+.-hungry {
+    width: 152px;
+    height: 131px;
+    background-position: -156px -209px;
+}
+
+.-playing1 {
+    width: 201px;
+    height: 145px;
+    background-position: -1px -342px;
+}
+
+.-playing2 {
+    width: 201px;
+    height: 145px;
+    background-position: -204px -342px;
+}
+
+.-sleeping1 {
+    width: 153px;
+    height: 131px;
+    background-position: -310px -209px;
+}
+
+.-sleeping2 {
+    width: 153px;
+    height: 131px;
+    background-position: -464px -1px;
+}
+
+.-sleepy {
+    width: 155px;
+    height: 131px;
+    background-position: -465px -134px;
+}
