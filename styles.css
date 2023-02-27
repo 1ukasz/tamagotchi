@@ -1,3 +1,8 @@
+@font-face {
+  font-family: "VT323";
+  src: url('font/VT323-Regular.ttf');
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -32,7 +37,9 @@ body {
   width: 100%;
   height: 477px;
   border: 10px solid #dfa46d;
-  box-shadow: inset 0px 0px 0px 20px #e7f6fd;
+  box-shadow: inset 0px 0px 0px 10px #e7f6fd;
+  background-color: #CDEDFC;
+  
 }
 
 .navigation {
@@ -49,4 +56,61 @@ body {
   height: 75px;
   border-radius: 50%;
   cursor: pointer;
+}
+
+.gameplay{
+  width: 100%;
+  height: 100%;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.petParamsBox{
+display: flex;
+justify-content: space-between;
+gap: 6px;
+}
+
+.petParams{
+  display: flex;
+  align-items: center;
+}
+
+.counter{
+  font-family: "VT323";
+  font-size: 40px;
+}
+
+.petBox{
+  border: 7px solid #9FDCF9;
+  height: 280px;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+hr{
+  border: 4px solid white;
+  width: 162px;
+}
+
+.petStateBox{
+  width: 320px;
+  height: 60px;
+  background-color: #e7f6fd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.petState{
+  font-family: 'VT323';
+  font-size: 56px;
+  line-height: 56px;
+  color:#724d50;
 }
