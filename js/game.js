@@ -21,12 +21,7 @@ export default class Game {
         this.tamagotchi.energy.value <= 0
       )
         this.tamagotchi.health.value--;
-      this.tamagotchi.mount({
-        healthElement,
-        hungerElement,
-        energyElement,
-        funElement,
-      });
+      this.tamagotchi.displayHealth(healthElement);
 
       if (this.tamagotchi.health.value <= 0) {
         clearInterval(healthId);
@@ -39,12 +34,7 @@ export default class Game {
 
     const decreaseHunger = () => {
       if (this.tamagotchi.hunger.value > 0) this.tamagotchi.hunger.value--;
-      this.tamagotchi.mount({
-        healthElement,
-        hungerElement,
-        energyElement,
-        funElement,
-      });
+      this.tamagotchi.displayHunger(hungerElement);
     };
 
     const decreaseEnergy = () => {
@@ -52,22 +42,12 @@ export default class Game {
         this.tamagotchi.energy.value--;
         if (this.tamagotchi.fun.value <= 0) this.tamagotchi.energy.value--;
       }
-      this.tamagotchi.mount({
-        healthElement,
-        hungerElement,
-        energyElement,
-        funElement,
-      });
+      this.tamagotchi.displayEnergy(energyElement);
     };
 
     const decreaseFun = () => {
       if (this.tamagotchi.fun.value > 0) this.tamagotchi.fun.value--;
-      this.tamagotchi.mount({
-        healthElement,
-        hungerElement,
-        energyElement,
-        funElement,
-      });
+      this.tamagotchi.displayFun(funElement);
     };
 
     let healthId = setInterval(decreaseHealth, 1000);
