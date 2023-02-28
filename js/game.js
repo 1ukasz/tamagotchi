@@ -3,10 +3,10 @@ import Tamagotchi from "./modules/tamagotchi.js";
 export default class Game {
   constructor() {
     this.tamagotchi = new Tamagotchi();
-    this.healthIntervalId = null;
-    this.hungerIntervalId = null;
-    this.energyIntervalId = null;
-    this.funIntervalId = null;
+    this.healthIntervalId = setInterval(this.decreaseHealth, 1000);
+    this.hungerIntervalId = setInterval(this.decreaseHunger, 1000);
+    this.energyIntervalId = setInterval(this.decreaseEnergy, 2000);
+    this.funIntervalId = setInterval(this.decreaseFun, 1000);
   }
 
   start = ({ healthElement, hungerElement, energyElement, funElement }) => {
@@ -17,11 +17,6 @@ export default class Game {
       funElement,
     });
     console.log("Game started");
-
-    this.healthIntervalId = setInterval(this.decreaseHealth, 1000);
-    this.hungerIntervalId = setInterval(this.decreaseHunger, 1000);
-    this.energyIntervalId = setInterval(this.decreaseEnergy, 2000);
-    this.funIntervalId = setInterval(this.decreaseFun, 1000);
   };
 
   decreaseHealth = () => {
