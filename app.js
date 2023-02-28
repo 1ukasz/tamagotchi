@@ -4,5 +4,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const game = new Game();
 
   // Start game
-  game.start({ healthElement: ".health" });
+  game.start({
+    healthElement: ".health",
+    hungerElement: ".hunger",
+    energyElement: ".energy",
+    funElement: ".fun",
+  });
 });

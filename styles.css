@@ -70,8 +70,7 @@ body {
 
 .petParamsBox{
 display: flex;
-justify-content: space-between;
-gap: 6px;
+gap: 4px;
 }
 
 .petParams{
@@ -82,6 +81,8 @@ gap: 6px;
 .counter{
   font-family: "VT323";
   font-size: 40px;
+  padding:0;
+  width: 32px;
 }
 
 .petBox{
