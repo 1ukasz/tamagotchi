@@ -4,6 +4,7 @@ export default class Tamagotchi {
     this.hunger = { value: 10, importance: 3, element: null };
     this.energy = { value: 10, importance: 2, element: null };
     this.fun = { value: 10, importance: 4, element: null };
+    this.currentState = null;
     console.log("Tamagotchi initialized");
   }
 

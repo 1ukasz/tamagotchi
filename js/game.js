@@ -57,4 +57,8 @@ export default class Game {
     clearInterval(this.funIntervalId);
     console.log("Game over");
   };
+
+  updateState = (newState) => {
+    this.tamagotchi.currentState = newState;
+  };
 }

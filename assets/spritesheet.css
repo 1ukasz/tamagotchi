@@ -1,71 +1,82 @@
-.cat {
-    background-image: url(spritesheet.png);
-    background-repeat: no-repeat;
-    display: block;
+.nimo {
+  background-image: url(spritesheet.png);
+  background-repeat: no-repeat;
+  display: block;
 }
 
 .-bored {
-    width: 153px;
-    height: 131px;
-    background-position: -1px -1px;
+  width: 153px;
+  height: 131px;
+  background-position: -1px -1px;
 }
 
 .-dead {
-    width: 183px;
-    height: 73px;
-    background-position: -156px -1px;
+  margin-top: 58px;
+  width: 183px;
+  height: 73px;
+  background-position: -156px -1px;
 }
 
-.-eating1 {
-    width: 152px;
-    height: 131px;
+.-eating {
+  width: 152px;
+  height: 131px;
+  animation: eat 1s steps(2) infinite;
+}
+
+@keyframes eat {
+  from {
     background-position: -156px -76px;
-}
-
-.-eating2 {
-    width: 152px;
-    height: 131px;
-    background-position: -310px -76px;
+  }
+  to {
+    background-position: -464px -76px;
+  }
 }
 
 .-happy {
-    width: 153px;
-    height: 131px;
-    background-position: -1px -209px;
+  width: 153px;
+  height: 131px;
+  background-position: -1px -209px;
 }
 
 .-hungry {
-    width: 152px;
-    height: 131px;
-    background-position: -156px -209px;
+  width: 152px;
+  height: 131px;
+  background-position: -156px -209px;
 }
 
-.-playing1 {
-    width: 201px;
-    height: 145px;
+.-playing {
+  margin-top: -14px;
+  width: 201px;
+  height: 145px;
+  animation: play 1s steps(2) infinite;
+}
+
+@keyframes play {
+  from {
     background-position: -1px -342px;
+  }
+  to {
+    background-position: -407px -342px;
+  }
 }
 
-.-playing2 {
-    width: 201px;
-    height: 145px;
-    background-position: -204px -342px;
+.-sleeping {
+  width: 153px;
+  height: 131px;
+  animation: sleep 1s steps(2) infinite;
 }
 
-.-sleeping1 {
-    width: 153px;
-    height: 131px;
+@keyframes sleep {
+  from {
     background-position: -310px -209px;
-}
-
-.-sleeping2 {
-    width: 153px;
-    height: 131px;
-    background-position: -464px -1px;
+  }
+  to {
+    background-position: -618px 207px;
+  }
 }
 
 .-sleepy {
-    width: 155px;
-    height: 131px;
-    background-position: -465px -134px;
+  width: 155px;
+  height: 131px;
+  background-position: -465px -134px;
 }
