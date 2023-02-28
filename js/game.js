@@ -18,53 +18,48 @@ export default class Game {
     });
     console.log("Game started");
 
-    const decreaseHealth = () => {
-      if (this.tamagotchi.health.value <= 0) {
-        this.end({
-          healthInterval: this.healthIntervalId,
-          hungerInterval: this.hungerIntervalId,
-          energyInterval: this.energyIntervalId,
-          funInterval: this.funIntervalId,
-        });
-      } else {
-        if (
-          this.tamagotchi.hunger.value <= 0 ||
-          this.tamagotchi.energy.value <= 0
-        )
-          this.tamagotchi.health.value--;
-        this.tamagotchi.displayHealth(healthElement);
-      }
-    };
-
-    const decreaseHunger = () => {
-      if (this.tamagotchi.hunger.value > 0) this.tamagotchi.hunger.value--;
-      this.tamagotchi.displayHunger(hungerElement);
-    };
-
-    const decreaseEnergy = () => {
-      if (this.tamagotchi.energy.value > 0) {
-        this.tamagotchi.energy.value--;
-        if (this.tamagotchi.fun.value <= 0) this.tamagotchi.energy.value--;
-      }
-      this.tamagotchi.displayEnergy(energyElement);
-    };
-
-    const decreaseFun = () => {
-      if (this.tamagotchi.fun.value > 0) this.tamagotchi.fun.value--;
-      this.tamagotchi.displayFun(funElement);
-    };
-
-    this.healthIntervalId = setInterval(decreaseHealth, 1000);
-    this.hungerIntervalId = setInterval(decreaseHunger, 1000);
-    this.energyIntervalId = setInterval(decreaseEnergy, 2000);
-    this.funId = setInterval(decreaseFun, 1000);
+    this.healthIntervalId = setInterval(this.decreaseHealth, 1000);
+    this.hungerIntervalId = setInterval(this.decreaseHunger, 1000);
+    this.energyIntervalId = setInterval(this.decreaseEnergy, 2000);
+    this.funIntervalId = setInterval(this.decreaseFun, 1000);
   };
 
-  end = ({ healthInterval, hungerInterval, energyInterval, funInterval }) => {
-    clearInterval(healthInterval);
-    clearInterval(hungerInterval);
-    clearInterval(energyInterval);
-    clearInterval(funInterval);
+  decreaseHealth = () => {
+    if (this.tamagotchi.health.value <= 0) {
+      this.end();
+    } else {
+      if (
+        this.tamagotchi.hunger.value <= 0 ||
+        this.tamagotchi.energy.value <= 0
+      )
+        this.tamagotchi.health.value--;
+      this.tamagotchi.displayHealth(this.tamagotchi.health.element);
+    }
+  };
+
+  decreaseHunger = () => {
+    if (this.tamagotchi.hunger.value > 0) this.tamagotchi.hunger.value--;
+    this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
+  };
+
+  decreaseEnergy = () => {
+    if (this.tamagotchi.energy.value > 0) {
+      this.tamagotchi.energy.value--;
+      if (this.tamagotchi.fun.value <= 0) this.tamagotchi.energy.value--;
+    }
+    this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
+  };
+
+  decreaseFun = () => {
+    if (this.tamagotchi.fun.value > 0) this.tamagotchi.fun.value--;
+    this.tamagotchi.displayFun(this.tamagotchi.fun.element);
+  };
+
+  end = () => {
+    clearInterval(this.healthIntervalId);
+    clearInterval(this.hungerIntervalId);
+    clearInterval(this.energyIntervalId);
+    clearInterval(this.funIntervalId);
     console.log("Game over");
   };
 }
