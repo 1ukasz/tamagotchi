@@ -42,12 +42,12 @@ export default class Tamagotchi {
   checkState() {
     if (this.health.value <= 0) {
       this.state = "dead";
-    } else if (this.fun.value < 6) {
-      this.state = "bored";
-    } else if (this.hunger.value < 3) {
-      this.state = "hungry";
-    } else if (this.energy.value < 4) {
+    } else if (this.energy.value <= 6) {
       this.state = "sleepy";
+    } else if (this.hunger.value <= 6) {
+      this.state = "hungry";
+    } else if (this.fun.value <= 6) {
+      this.state = "bored";
     } else if (
       this.hunger.value >= 7 &&
       this.energy.value >= 7 &&

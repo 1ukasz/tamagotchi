@@ -17,7 +17,7 @@ export default class Game {
       funElement,
     });
     this.tamagotchi.checkState();
-    this.BtnListeners();
+    this.btnListeners();
     console.log("Game started");
   };
 
@@ -81,7 +81,7 @@ export default class Game {
   nimo = document.getElementById("nimo");
   stateText = document.getElementById("petState");
 
-  BtnListeners = () => {
+  btnListeners = () => {
     eatBtn.addEventListener("click", () => {
       this.end();
       nimo.classList = "";
@@ -91,6 +91,7 @@ export default class Game {
       setTimeout(() => {
         this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
         this.resume();
+        this.tamagotchi.checkState();
         this.tamagotchi.updateState();
       }, 3000);
     });
@@ -103,6 +104,7 @@ export default class Game {
       setTimeout(() => {
         this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
         this.resume();
+        this.tamagotchi.checkState();
         this.tamagotchi.updateState();
       }, 3000);
     });
@@ -115,6 +117,7 @@ export default class Game {
       setTimeout(() => {
         this.tamagotchi.displayFun(this.tamagotchi.fun.element);
         this.resume();
+        this.tamagotchi.checkState();
         this.tamagotchi.updateState();
       }, 3000);
     });
