@@ -87,7 +87,9 @@ export default class Game {
       nimo.classList = "";
       this.nimo.classList.add("-eating");
       this.stateText.innerText = "EATING";
+      this.tamagotchi.hunger.value += 2;
       setTimeout(() => {
+        this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
         this.resume();
         this.tamagotchi.updateState();
       }, 3000);
@@ -97,7 +99,9 @@ export default class Game {
       nimo.classList = "";
       this.nimo.classList.add("-sleeping");
       this.stateText.innerText = "SLEEPING";
+      this.tamagotchi.energy.value += 2;
       setTimeout(() => {
+        this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
         this.resume();
         this.tamagotchi.updateState();
       }, 3000);
@@ -107,7 +111,9 @@ export default class Game {
       nimo.classList = "";
       this.nimo.classList.add("-playing");
       this.stateText.innerText = "PLAYING";
+      this.tamagotchi.fun.value += 2;
       setTimeout(() => {
+        this.tamagotchi.displayFun(this.tamagotchi.fun.element);
         this.resume();
         this.tamagotchi.updateState();
       }, 3000);
