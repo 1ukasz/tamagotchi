@@ -99,7 +99,10 @@ export default class Game {
 
   btnListeners = () => {
     eatBtn.addEventListener("click", () => {
-      this.btnSingleListener("-eating", "EATING");
+      this.btnSingleListener(
+        `-${this.tamagotchi.states.eating}`,
+        this.tamagotchi.states.eating.toUpperCase()
+      );
       this.tamagotchi.hunger.value += 2;
       this.displayTimeout(
         this.tamagotchi.displayHunger,
@@ -107,7 +110,10 @@ export default class Game {
       );
     });
     sleepBtn.addEventListener("click", () => {
-      this.btnSingleListener("-sleeping", "SLEEPING");
+      this.btnSingleListener(
+        `-${this.tamagotchi.states.sleeping}`,
+        this.tamagotchi.states.sleeping.toUpperCase()
+      );
       this.tamagotchi.energy.value += 2;
       this.displayTimeout(
         this.tamagotchi.displayEnergy,
@@ -115,7 +121,10 @@ export default class Game {
       );
     });
     playBtn.addEventListener("click", () => {
-      this.btnSingleListener("-playing", "PLAYING");
+      this.btnSingleListener(
+        `-${this.tamagotchi.states.playing}`,
+        this.tamagotchi.states.playing.toUpperCase()
+      );
       this.tamagotchi.fun.value += 2;
       this.displayTimeout(
         this.tamagotchi.displayFun,
