@@ -23,9 +23,8 @@ export default class Game {
 
   decreaseHealth = () => {
     this.tamagotchi.checkState();
-    if (this.tamagotchi.health.value <= 0) {
+    if (this.tamagotchi.health.value == 0) {
       this.end();
-      console.log("Game over");
     } else {
       if (
         this.tamagotchi.hunger.value <= 0 ||
@@ -33,8 +32,8 @@ export default class Game {
       )
         this.tamagotchi.health.value--;
       this.tamagotchi.displayHealth(this.tamagotchi.health.element);
+      this.tamagotchi.updateState();
     }
-    this.tamagotchi.updateState();
   };
 
   decreaseHunger = () => {
@@ -48,7 +47,8 @@ export default class Game {
     this.tamagotchi.checkState();
     if (this.tamagotchi.energy.value > 0) {
       this.tamagotchi.energy.value--;
-      if (this.tamagotchi.fun.value <= 0) this.tamagotchi.energy.value--;
+      if (this.tamagotchi.fun.value <= 0 && this.tamagotchi.energy.value > 0)
+        this.tamagotchi.energy.value--;
     }
     this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
     this.tamagotchi.updateState();
@@ -81,45 +81,46 @@ export default class Game {
   nimo = document.getElementById("nimo");
   stateText = document.getElementById("petState");
 
+  btnSingleListener = (stateClass, statePrompt) => {
+    this.end();
+    nimo.classList = "";
+    this.nimo.classList.add(stateClass);
+    this.stateText.innerText = statePrompt;
+  };
+
+  displayTimeout = (displayMethod, element) => {
+    setTimeout(() => {
+      displayMethod(element); // this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
+      this.resume();
+      this.tamagotchi.checkState();
+      this.tamagotchi.updateState();
+    }, 3000);
+  };
+
   btnListeners = () => {
     eatBtn.addEventListener("click", () => {
-      this.end();
-      nimo.classList = "";
-      this.nimo.classList.add("-eating");
-      this.stateText.innerText = "EATING";
+      this.btnSingleListener("-eating", "EATING");
       this.tamagotchi.hunger.value += 2;
-      setTimeout(() => {
-        this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
-        this.resume();
-        this.tamagotchi.checkState();
-        this.tamagotchi.updateState();
-      }, 3000);
+      this.displayTimeout(
+        this.tamagotchi.displayHunger,
+        this.tamagotchi.hunger.element
+      );
     });
     sleepBtn.addEventListener("click", () => {
-      this.end();
-      nimo.classList = "";
-      this.nimo.classList.add("-sleeping");
-      this.stateText.innerText = "SLEEPING";
+      this.btnSingleListener("-sleeping", "SLEEPING");
       this.tamagotchi.energy.value += 2;
-      setTimeout(() => {
-        this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
-        this.resume();
-        this.tamagotchi.checkState();
-        this.tamagotchi.updateState();
-      }, 3000);
+      this.displayTimeout(
+        this.tamagotchi.displayEnergy,
+        this.tamagotchi.energy.element
+      );
     });
     playBtn.addEventListener("click", () => {
-      this.end();
-      nimo.classList = "";
-      this.nimo.classList.add("-playing");
-      this.stateText.innerText = "PLAYING";
+      this.btnSingleListener("-playing", "PLAYING");
       this.tamagotchi.fun.value += 2;
-      setTimeout(() => {
-        this.tamagotchi.displayFun(this.tamagotchi.fun.element);
-        this.resume();
-        this.tamagotchi.checkState();
-        this.tamagotchi.updateState();
-      }, 3000);
+      this.displayTimeout(
+        this.tamagotchi.displayFun,
+        this.tamagotchi.fun.element
+      );
     });
   };
 }
