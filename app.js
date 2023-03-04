@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Start game
   game.start({
-    petStateId: "petState",
     healthElement: ".health",
     hungerElement: ".hunger",
     energyElement: ".energy",
