@@ -9,13 +9,24 @@ export default class Game {
     this.funIntervalId = setInterval(this.decreaseFun, 1000);
   }
 
-  start = ({ healthElement, hungerElement, energyElement, funElement }) => {
+  start = ({
+    healthElement,
+    hungerElement,
+    energyElement,
+    funElement,
+    btnEatId,
+    btnSleepId,
+    btnPlayId,
+  }) => {
     this.tamagotchi.mount({
       healthElement,
       hungerElement,
       energyElement,
       funElement,
     });
+    this.btnEatElement = btnEatId;
+    this.btnSleepElement = btnSleepId;
+    this.btnPlayElement = btnPlayId;
     this.tamagotchi.checkState();
     this.btnListeners();
     console.log("Game started");
@@ -75,15 +86,15 @@ export default class Game {
     this.funIntervalId = setInterval(this.decreaseFun, 1000);
   };
 
-  eatBtn = document.getElementById("eatBtn");
-  sleepBtn = document.getElementById("sleepBtn");
-  playBtn = document.getElementById("playBtn");
   nimo = document.getElementById("nimo");
   stateText = document.getElementById("petState");
+  eatBtn = document.getElementById(this.btnEatElement);
+  sleepBtn = document.getElementById(this.btnSleepElement);
+  playBtn = document.getElementById(this.btnPlayElement);
 
   btnSingleListener = (stateClass, statePrompt) => {
     this.end();
-    nimo.classList = "";
+    this.nimo.classList = "";
     this.nimo.classList.add(stateClass);
     this.stateText.innerText = statePrompt;
   };
