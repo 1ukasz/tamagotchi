@@ -9,5 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     hungerElement: ".hunger",
     energyElement: ".energy",
     funElement: ".fun",
+    btnEatId: "eatBtn",
+    btnSleepId: "sleepBtn",
+    btnPlayId: "playBtn",
   });
 });

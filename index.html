@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>Tamagotchi</title>
     <link href="./styles.css" rel="stylesheet" />
+    <link href="assets/spritesheet.css" rel="stylesheet" />
   </head>
   <body>
     <div class="gameBoy">
@@ -28,22 +29,22 @@
             </div>
           </div>
           <div class="petBox">
-            <img class="pet" src="assets/Nimo.png" alt="nimoIcon">
+            <div id="nimo" class="-happy"></div>
             <hr>
           </div>
           <div class="petStateBox">
-            <p class="petState">HAPPY</p>
+            <p id="petState">HAPPY</p>
           </div>
         </div>
       </div>
       <nav class="navigation">
-        <button class="gameBtn">
+        <button id="eatBtn" class="gameBtn">
           <img src="assets/eat.png" alt="appleIcon">
         </button>
-        <button class="gameBtn">
+        <button id="sleepBtn" class="gameBtn">
           <img src="assets/sleep.png" alt="sleepIcon">
         </button>
-        <button class="gameBtn">
+        <button id="playBtn" class="gameBtn">
           <img src="assets/play.png" alt="soccerBallIcon">
         </button>
       </nav>
