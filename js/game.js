@@ -39,6 +39,8 @@ export default class Game {
     this.tamagotchi.checkState();
     if (this.tamagotchi.health.value == 0) {
       this.end();
+      console.log("Game Over");
+      this.replaceStateButtonsWithRestartButton();
     } else {
       if (
         this.tamagotchi.hunger.value <= 0 ||
@@ -170,6 +172,17 @@ export default class Game {
         this.tamagotchi.updateState();
         this.resume();
       }
+    });
+  };
+  replaceStateButtonsWithRestartButton = () => {
+    const stateBtnsContainer = document.querySelector(".navigation");
+    const restartBtn = document.createElement("button");
+    restartBtn.classList.add("restart-btn");
+    restartBtn.innerText = "RESTART";
+    stateBtnsContainer.innerHTML = "";
+    stateBtnsContainer.appendChild(restartBtn);
+    restartBtn.addEventListener("click", () => {
+      location.reload();
     });
   };
 }
