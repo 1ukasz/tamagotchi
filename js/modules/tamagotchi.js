@@ -80,6 +80,7 @@ export default class Tamagotchi {
       case this.states.dead:
         nimo.classList.add(`-${this.states.dead}`);
         stateText.innerText = this.states.dead.toUpperCase();
+        this.replaceStateButtonsWithRestartButton();
         break;
       case this.states.sleepy:
         nimo.classList.add(`-${this.states.sleepy}`);
@@ -111,4 +112,16 @@ export default class Tamagotchi {
         break;
     }
   }
+
+  replaceStateButtonsWithRestartButton = () => {
+    const stateBtnsContainer = document.querySelector(".navigation");
+    const restartBtn = document.createElement("button");
+    restartBtn.classList.add("restart-btn");
+    restartBtn.innerText = "Restart";
+    stateBtnsContainer.innerHTML = "";
+    stateBtnsContainer.appendChild(restartBtn);
+    restartBtn.addEventListener("click", () => {
+      location.reload();
+    });
+  };
 }

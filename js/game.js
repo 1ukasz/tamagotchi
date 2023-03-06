@@ -184,7 +184,7 @@ export default class Game {
     const stateBtnsContainer = document.querySelector(".navigation");
     const restartBtn = document.createElement("button");
     restartBtn.classList.add("restart-btn");
-    restartBtn.innerText = "RESTART";
+    restartBtn.innerText = "Restart";
     stateBtnsContainer.innerHTML = "";
     stateBtnsContainer.appendChild(restartBtn);
     restartBtn.addEventListener("click", () => {
