@@ -7,6 +7,9 @@ export default class Game {
     this.hungerIntervalId = setInterval(this.decreaseHunger, 1000);
     this.energyIntervalId = setInterval(this.decreaseEnergy, 2000);
     this.funIntervalId = setInterval(this.decreaseFun, 1000);
+    this.isEating = false;
+    this.isSleeping = false;
+    this.isPlaying = false;
   }
 
   start = ({
@@ -99,48 +102,74 @@ export default class Game {
     this.stateText.innerText = statePrompt;
   };
 
-  displayTimeout = (displayMethod, element) => {
-    setTimeout(() => {
-      displayMethod(element); // this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
-      this.resume();
-      this.tamagotchi.checkState();
-      this.tamagotchi.updateState();
-    }, 3000);
-  };
-
   btnListeners = () => {
     eatBtn.addEventListener("click", () => {
-      this.btnSingleListener(
-        `-${this.tamagotchi.states.eating}`,
-        this.tamagotchi.states.eating.toUpperCase()
-      );
-      this.tamagotchi.hunger.value += 2;
-      this.displayTimeout(
-        this.tamagotchi.displayHunger,
-        this.tamagotchi.hunger.element
-      );
+      if (!this.isEating) {
+        this.isEating = true;
+        this.isSleeping = false;
+        this.isPlaying = false;
+        clearInterval(this.sleepingIntervalId);
+        clearInterval(this.playingIntervalId);
+        this.btnSingleListener(
+          `-${this.tamagotchi.states.eating}`,
+          this.tamagotchi.states.eating.toUpperCase()
+        );
+        this.eatingIntervalId = setInterval(() => {
+          this.tamagotchi.hunger.value += 2;
+          this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
+        }, 1000);
+      } else {
+        clearInterval(this.eatingIntervalId);
+        this.isEating = false;
+        this.tamagotchi.updateState();
+        this.resume();
+      }
     });
     sleepBtn.addEventListener("click", () => {
-      this.btnSingleListener(
-        `-${this.tamagotchi.states.sleeping}`,
-        this.tamagotchi.states.sleeping.toUpperCase()
-      );
-      this.tamagotchi.energy.value += 2;
-      this.displayTimeout(
-        this.tamagotchi.displayEnergy,
-        this.tamagotchi.energy.element
-      );
+      if (!this.isSleeping) {
+        this.isSleeping = true;
+        this.isEating = false;
+        this.isPlaying = false;
+        clearInterval(this.eatingIntervalId);
+        clearInterval(this.playingIntervalId);
+        this.btnSingleListener(
+          `-${this.tamagotchi.states.sleeping}`,
+          this.tamagotchi.states.sleeping.toUpperCase()
+        );
+        this.sleepingIntervalId = setInterval(() => {
+          this.tamagotchi.energy.value += 2;
+          this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
+        }, 1000);
+      } else {
+        clearInterval(this.sleepingIntervalId);
+        this.isSleeping = false;
+        this.tamagotchi.updateState();
+        this.resume();
+      }
     });
     playBtn.addEventListener("click", () => {
-      this.btnSingleListener(
-        `-${this.tamagotchi.states.playing}`,
-        this.tamagotchi.states.playing.toUpperCase()
-      );
-      this.tamagotchi.fun.value += 2;
-      this.displayTimeout(
-        this.tamagotchi.displayFun,
-        this.tamagotchi.fun.element
-      );
+      if (!this.isPlaying) {
+        this.isSleeping = false;
+        this.isEating = false;
+        this.isPlaying = true;
+        clearInterval(this.eatingIntervalId);
+        clearInterval(this.sleepingIntervalId);
+        this.btnSingleListener(
+          `-${this.tamagotchi.states.playing}`,
+          this.tamagotchi.states.playing.toUpperCase()
+        );
+        this.playingIntervalId = setInterval(() => {
+          this.tamagotchi.fun.value += 2;
+          this.tamagotchi.energy.value--;
+          this.tamagotchi.displayFun(this.tamagotchi.fun.element);
+          this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
+        }, 1000);
+      } else {
+        clearInterval(this.playingIntervalId);
+        this.isPlaying = false;
+        this.tamagotchi.updateState();
+        this.resume();
+      }
     });
   };
 }
