@@ -7,9 +7,6 @@ export default class Game {
     this.hungerIntervalId = setInterval(this.decreaseHunger, 1000);
     this.energyIntervalId = setInterval(this.decreaseEnergy, 2000);
     this.funIntervalId = setInterval(this.decreaseFun, 1000);
-    this.isEating = false;
-    this.isSleeping = false;
-    this.isPlaying = false;
   }
 
   start = ({
@@ -40,7 +37,6 @@ export default class Game {
     if (this.tamagotchi.health.value == 0) {
       this.end();
       console.log("Game Over");
-      this.replaceStateButtonsWithRestartButton();
     } else {
       if (
         this.tamagotchi.hunger.value <= 0 ||
@@ -101,20 +97,18 @@ export default class Game {
     this.end();
     this.nimo.classList = "";
     this.nimo.classList.add(stateClass);
-    this.stateText.innerText = statePrompt;
+    this.stateText.innerText = statePrompt.toUpperCase();
   };
 
   btnListeners = () => {
     eatBtn.addEventListener("click", () => {
-      if (!this.isEating) {
-        this.isEating = true;
-        this.isSleeping = false;
-        this.isPlaying = false;
+      if (this.tamagotchi.state !== this.tamagotchi.states.eating) {
+        this.tamagotchi.state = this.tamagotchi.states.eating;
         clearInterval(this.sleepingIntervalId);
         clearInterval(this.playingIntervalId);
         this.btnSingleListener(
           `-${this.tamagotchi.states.eating}`,
-          this.tamagotchi.states.eating.toUpperCase()
+          this.tamagotchi.states.eating
         );
         this.eatingIntervalId = setInterval(() => {
           this.tamagotchi.hunger.value += 2;
@@ -122,21 +116,18 @@ export default class Game {
         }, 1000);
       } else {
         clearInterval(this.eatingIntervalId);
-        this.isEating = false;
         this.tamagotchi.updateState();
         this.resume();
       }
     });
     sleepBtn.addEventListener("click", () => {
-      if (!this.isSleeping) {
-        this.isSleeping = true;
-        this.isEating = false;
-        this.isPlaying = false;
+      if (this.tamagotchi.state !== this.tamagotchi.states.sleeping) {
+        this.tamagotchi.state = this.tamagotchi.states.sleeping;
         clearInterval(this.eatingIntervalId);
         clearInterval(this.playingIntervalId);
         this.btnSingleListener(
           `-${this.tamagotchi.states.sleeping}`,
-          this.tamagotchi.states.sleeping.toUpperCase()
+          this.tamagotchi.states.sleeping
         );
         this.sleepingIntervalId = setInterval(() => {
           this.tamagotchi.energy.value += 2;
@@ -144,28 +135,23 @@ export default class Game {
         }, 1000);
       } else {
         clearInterval(this.sleepingIntervalId);
-        this.isSleeping = false;
         this.tamagotchi.updateState();
         this.resume();
       }
     });
     playBtn.addEventListener("click", () => {
-      if (!this.isPlaying) {
-        this.isSleeping = false;
-        this.isEating = false;
-        this.isPlaying = true;
+      if (this.tamagotchi.state !== this.tamagotchi.states.playing) {
         clearInterval(this.eatingIntervalId);
         clearInterval(this.sleepingIntervalId);
         this.btnSingleListener(
           `-${this.tamagotchi.states.playing}`,
-          this.tamagotchi.states.playing.toUpperCase()
+          this.tamagotchi.states.playing
         );
         this.playingIntervalId = setInterval(() => {
           this.tamagotchi.fun.value += 2;
           this.tamagotchi.energy.value--;
           if (this.tamagotchi.energy.value <= 0) {
             clearInterval(this.playingIntervalId);
-            this.isPlaying = false;
             this.tamagotchi.updateState();
             this.resume();
           }
@@ -178,17 +164,6 @@ export default class Game {
         this.tamagotchi.updateState();
         this.resume();
       }
-    });
-  };
-  replaceStateButtonsWithRestartButton = () => {
-    const stateBtnsContainer = document.querySelector(".navigation");
-    const restartBtn = document.createElement("button");
-    restartBtn.classList.add("restart-btn");
-    restartBtn.innerText = "Restart";
-    stateBtnsContainer.innerHTML = "";
-    stateBtnsContainer.appendChild(restartBtn);
-    restartBtn.addEventListener("click", () => {
-      location.reload();
     });
   };
 }
