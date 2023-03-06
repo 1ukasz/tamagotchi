@@ -100,70 +100,82 @@ export default class Game {
     this.stateText.innerText = statePrompt.toUpperCase();
   };
 
+  handleEat = () => {
+    if (this.tamagotchi.state !== this.tamagotchi.states.eating) {
+      this.tamagotchi.state = this.tamagotchi.states.eating;
+      clearInterval(this.sleepingIntervalId);
+      clearInterval(this.playingIntervalId);
+      this.btnSingleListener(
+        `-${this.tamagotchi.states.eating}`,
+        this.tamagotchi.states.eating
+      );
+      this.eatingIntervalId = setInterval(() => {
+        this.tamagotchi.hunger.value += 2;
+        this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
+      }, 1000);
+    } else {
+      clearInterval(this.eatingIntervalId);
+      this.tamagotchi.updateState();
+      this.resume();
+    }
+  };
+
+  handleSleep = () => {
+    if (this.tamagotchi.state !== this.tamagotchi.states.sleeping) {
+      this.tamagotchi.state = this.tamagotchi.states.sleeping;
+      clearInterval(this.eatingIntervalId);
+      clearInterval(this.playingIntervalId);
+      this.btnSingleListener(
+        `-${this.tamagotchi.states.sleeping}`,
+        this.tamagotchi.states.sleeping
+      );
+      this.sleepingIntervalId = setInterval(() => {
+        this.tamagotchi.energy.value += 2;
+        this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
+      }, 1000);
+    } else {
+      clearInterval(this.sleepingIntervalId);
+      this.tamagotchi.updateState();
+      this.resume();
+    }
+  };
+
+  handlePlay = () => {
+    if (this.tamagotchi.state !== this.tamagotchi.states.playing) {
+      this.tamagotchi.state = this.tamagotchi.states.playing;
+      clearInterval(this.eatingIntervalId);
+      clearInterval(this.sleepingIntervalId);
+      this.btnSingleListener(
+        `-${this.tamagotchi.states.playing}`,
+        this.tamagotchi.states.playing
+      );
+      this.playingIntervalId = setInterval(() => {
+        this.tamagotchi.fun.value += 2;
+        this.tamagotchi.energy.value--;
+        if (this.tamagotchi.energy.value <= 0) {
+          clearInterval(this.playingIntervalId);
+          this.tamagotchi.updateState();
+          this.resume();
+        }
+        this.tamagotchi.displayFun(this.tamagotchi.fun.element);
+        this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
+      }, 1000);
+    } else {
+      clearInterval(this.playingIntervalId);
+      this.tamagotchi.updateState();
+      this.resume();
+    }
+  };
+
   btnListeners = () => {
     eatBtn.addEventListener("click", () => {
-      if (this.tamagotchi.state !== this.tamagotchi.states.eating) {
-        this.tamagotchi.state = this.tamagotchi.states.eating;
-        clearInterval(this.sleepingIntervalId);
-        clearInterval(this.playingIntervalId);
-        this.btnSingleListener(
-          `-${this.tamagotchi.states.eating}`,
-          this.tamagotchi.states.eating
-        );
-        this.eatingIntervalId = setInterval(() => {
-          this.tamagotchi.hunger.value += 2;
-          this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
-        }, 1000);
-      } else {
-        clearInterval(this.eatingIntervalId);
-        this.tamagotchi.updateState();
-        this.resume();
-      }
+      this.handleEat();
     });
     sleepBtn.addEventListener("click", () => {
-      if (this.tamagotchi.state !== this.tamagotchi.states.sleeping) {
-        this.tamagotchi.state = this.tamagotchi.states.sleeping;
-        clearInterval(this.eatingIntervalId);
-        clearInterval(this.playingIntervalId);
-        this.btnSingleListener(
-          `-${this.tamagotchi.states.sleeping}`,
-          this.tamagotchi.states.sleeping
-        );
-        this.sleepingIntervalId = setInterval(() => {
-          this.tamagotchi.energy.value += 2;
-          this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
-        }, 1000);
-      } else {
-        clearInterval(this.sleepingIntervalId);
-        this.tamagotchi.updateState();
-        this.resume();
-      }
+      this.handleSleep();
     });
     playBtn.addEventListener("click", () => {
-      if (this.tamagotchi.state !== this.tamagotchi.states.playing) {
-        clearInterval(this.eatingIntervalId);
-        clearInterval(this.sleepingIntervalId);
-        this.btnSingleListener(
-          `-${this.tamagotchi.states.playing}`,
-          this.tamagotchi.states.playing
-        );
-        this.playingIntervalId = setInterval(() => {
-          this.tamagotchi.fun.value += 2;
-          this.tamagotchi.energy.value--;
-          if (this.tamagotchi.energy.value <= 0) {
-            clearInterval(this.playingIntervalId);
-            this.tamagotchi.updateState();
-            this.resume();
-          }
-          this.tamagotchi.displayFun(this.tamagotchi.fun.element);
-          this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
-        }, 1000);
-      } else {
-        clearInterval(this.playingIntervalId);
-        this.isPlaying = false;
-        this.tamagotchi.updateState();
-        this.resume();
-      }
+      this.handlePlay();
     });
   };
 }
