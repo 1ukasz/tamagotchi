@@ -163,6 +163,12 @@ export default class Game {
         this.playingIntervalId = setInterval(() => {
           this.tamagotchi.fun.value += 2;
           this.tamagotchi.energy.value--;
+          if (this.tamagotchi.energy.value <= 0) {
+            clearInterval(this.playingIntervalId);
+            this.isPlaying = false;
+            this.tamagotchi.updateState();
+            this.resume();
+          }
           this.tamagotchi.displayFun(this.tamagotchi.fun.element);
           this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
         }, 1000);
