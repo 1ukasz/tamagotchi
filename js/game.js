@@ -110,7 +110,11 @@ export default class Game {
         this.tamagotchi.states.eating
       );
       this.eatingIntervalId = setInterval(() => {
-        this.tamagotchi.hunger.value += 2;
+        if (this.tamagotchi.hunger.value <= 8) {
+          this.tamagotchi.hunger.value += 2;
+        } else {
+          this.tamagotchi.hunger.value = 10;
+        }
         this.tamagotchi.displayHunger(this.tamagotchi.hunger.element);
       }, 1000);
     } else {
@@ -130,7 +134,11 @@ export default class Game {
         this.tamagotchi.states.sleeping
       );
       this.sleepingIntervalId = setInterval(() => {
-        this.tamagotchi.energy.value += 2;
+        if (this.tamagotchi.energy.value <= 8) {
+          this.tamagotchi.energy.value += 2;
+        } else {
+          this.tamagotchi.energy.value = 10;
+        }
         this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
       }, 1000);
     } else {
@@ -150,15 +158,21 @@ export default class Game {
         this.tamagotchi.states.playing
       );
       this.playingIntervalId = setInterval(() => {
-        this.tamagotchi.fun.value += 2;
-        this.tamagotchi.energy.value--;
         if (this.tamagotchi.energy.value <= 0) {
           clearInterval(this.playingIntervalId);
+          this.tamagotchi.energy.value = 0;
           this.tamagotchi.updateState();
           this.resume();
+        } else {
+          if (this.tamagotchi.fun.value <= 8) {
+            this.tamagotchi.fun.value += 2;
+          } else {
+            this.tamagotchi.fun.value = 10;
+          }
+          this.tamagotchi.energy.value--;
+          this.tamagotchi.displayFun(this.tamagotchi.fun.element);
+          this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
         }
-        this.tamagotchi.displayFun(this.tamagotchi.fun.element);
-        this.tamagotchi.displayEnergy(this.tamagotchi.energy.element);
       }, 1000);
     } else {
       clearInterval(this.playingIntervalId);
