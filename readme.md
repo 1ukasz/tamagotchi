@@ -5,6 +5,8 @@
 This project is about recreating famous game.
 
 ---
+Link:
+https://1ukasz.github.io/tamagotchi/
 
 ### 📝 Project requirements
 
